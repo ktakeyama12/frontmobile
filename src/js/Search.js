@@ -4,7 +4,9 @@ import '../css/search.css';
 import Button from '@material-ui/core/Button';
 
 import {
-    Page
+    Page,
+    Switch,
+    ListItem
 } from 'react-onsenui';
 
 import NavBar from './NavBar';
@@ -87,18 +89,27 @@ class Search extends React.Component{
                             <div className="form-group col-xs-offset-0 col-xs-12 col-md-offset-2 col-md-8">
                                 <h3>Category</h3>
                                 <div className="sample">
-                                    <input type="radio" name="s1" id="select1" value="1" checked="checked"/>
-                                    <label htmlFor="select1">Music</label>
-                                    <input type="radio" name="s2" id="select2" value="2"/>
-                                    <label htmlFor="select2">Movie</label>
-                                    <input type="radio" name="s3" id="select3" value="3"/>
-                                    <label htmlFor="select3">Anime</label>
-                                    <input type="radio" name="s4" id="select4" value="4"/>
-                                    <label htmlFor="select4">Game</label>
-                                    <input type="radio" name="s5" id="select5" value="5"/>
-                                    <label htmlFor="select5">TED</label>
-                                    <input type="radio" name="s6" id="select6" value="6" onClick={() => this.OnClickChange()}/>
-                                    <label htmlFor="select6">Keyword</label>
+                                <ListItem>
+                                <Switch/> Music
+                                </ListItem>
+                                <ListItem>
+                                <Switch/> Movie
+                                </ListItem>
+                                <ListItem>
+                                <Switch/> Anime
+                                </ListItem>
+                                <ListItem>
+                                <Switch/> Game
+                                </ListItem>
+                                <ListItem>
+                                <Switch/> TED
+                                </ListItem>
+                                <ListItem>
+                                <Switch/> Keyword
+                                </ListItem>
+
+
+
                                 </div>
                             </div>
                             <div className="form-group col-xs-offset-0 col-xs-12 col-md-offset-2 col-md-8" style={{ display: this.state.formFlg ? '' : 'none' }}>

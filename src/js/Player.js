@@ -135,7 +135,7 @@ class Player extends React.Component{
                         return (
                             <div>
                                 <button onClick={()=>this.onChangeStartVideo(all)}>
-                                        <p>start:{all[0]}<br/>text:{all[1]}</p>
+                                        <p>start:{all[0]} {all[1]}</p>
 
                                 </button>
                             </div>
