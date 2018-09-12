@@ -2,6 +2,14 @@ import React from 'react';
 import '../css/player.css';
 import YouTube from "react-youtube";
 
+import {
+    Page,
+    ListItem,
+    Card
+} from 'react-onsenui';
+
+import NavBar from './NavBar';
+
 function getdurationAll(obj) {
     var durations = [];
 
@@ -110,6 +118,7 @@ class Player extends React.Component{
         };
         return(
             <div className={"player"}>
+             <Page renderToolbar={() => <NavBar title='Details'/>}>
                 <div className="header">
                 </div>
 
@@ -126,8 +135,8 @@ class Player extends React.Component{
                         return (
                             <div>
                                 <button onClick={()=>this.onChangeStartVideo(all)}>
-                                        <p>start:{all[0]}</p>
-                                        <p>text:{all[1]}</p>
+                                        <p>start:{all[0]}<br/>text:{all[1]}</p>
+
                                 </button>
                             </div>
                         )
