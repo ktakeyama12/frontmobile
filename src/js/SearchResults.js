@@ -3,7 +3,8 @@ import '../css/searchresults.css';
 
 import {
     Page,
-    ListItem
+    ListItem,
+    Card
 } from 'react-onsenui';
 
 import NavBar from './NavBar';
@@ -46,6 +47,9 @@ function getvideoIdAll(obj) {
     return videoIds;
 }
 
+const imageStyle ={
+    width : "100%",
+}
 
 class SearchResults extends React.Component {
     constructor(props){
@@ -102,6 +106,7 @@ class SearchResults extends React.Component {
         this.props.changePage('Player')
     }
 
+
     render() {
         return (
             <div className={"searchresults"}>
@@ -116,11 +121,13 @@ class SearchResults extends React.Component {
                             <div className="row">
                                 <div className="col-xs-12">
                                     <a onClick={() => this.sendVideoId(all[3])}>
-                                    <ListItem>
-                                        <div className="col-xs-3">
-                                            <iframe title={"movie"} width="560" height="315" src={all[0]} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen />
-                                        </div>
+                                        <Card>
+                                        <ListItem>
+                                        <img src={all[0]} style={imageStyle}></img>
+                                            <iframe title={"movie"} width="560" height="315" src={all[0]} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen width="100%" />
+
                                         </ListItem>
+                                        </Card>
                                         <ListItem>
                                         <div className="col-xs-9">
                                             <h3>{all[1]}</h3>
