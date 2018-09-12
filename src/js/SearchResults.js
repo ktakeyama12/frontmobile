@@ -124,7 +124,6 @@ class SearchResults extends React.Component {
                                         <Card>
                                         <ListItem>
                                         <img src={all[0]} style={imageStyle}></img>
-                                            <iframe title={"movie"} width="560" height="315" src={all[0]} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen width="100%" />
 
                                         </ListItem>
                                         </Card>
@@ -141,12 +140,6 @@ class SearchResults extends React.Component {
                     })}
                 </div>
                 {this.state.a}
-                <button className="SearchResults" onClick = {() => this.props.changePage('SearchResults')}>
-                    SearchResults
-                </button>
-                <button className="Player" onClick = {() => this.props.changePage('Player')}>
-                    Player
-                </button>
                 </Page>
             </div>
         )

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/player.css';
-import Example from '../js/Example';
+import YouTube from "react-youtube";
 
 function getdurationAll(obj) {
     var durations = [];
@@ -40,23 +40,35 @@ class Player extends React.Component{
             texts: [],
             durations: [],
             all: [],
-            start :'',
-            duration : ''
-
+            start :'10',
+            duration : '20',
+            player: null
         };
+        this.onReady = this.onReady.bind(this);
+        this.onChangeStartVideo = this.onChangeStartVideo.bind(this);
+        this.onPlayVideo = this.onPlayVideo.bind(this);
+        this.onPauseVideo = this.onPauseVideo.bind(this);
     }
-    onClickLoadVideo(a) {
-        this.setState({start: a[0]});
-        this.setState({duration: a[2]});
-        if (this.player) this.player.loadVideoById({
-            'videoId': this.props.videoId,
-            'startSeconds': a[0],
-            'endSeconds': a[0]+a[2],
-            'suggestedQuality': 'default'
+    onReady(event) {
+        console.log(`YouTube Player object for videoId: "${this.props.videoId}" has been saved to state.`);
+        this.setState({
+            player: event.target,
         });
-        console.log('endSeconds');
     }
-
+    onPlayVideo() {
+        this.state.player.playVideo();
+    }
+    onPauseVideo() {
+        this.state.player.pauseVideo();
+    }
+    onChangeStartVideo(all) {
+        this.state.player.loadVideoById({
+            'videoId': this.props.videoId,
+            'startSeconds': all[0],
+            'endSeconds': all[0]+all[2],
+            'suggestedQuality': 'default'
+        })
+    }
     componentDidMount() {
         var xhttp = new XMLHttpRequest();
         var self = this;
@@ -69,7 +81,7 @@ class Player extends React.Component{
                 let starts = getstartAll(response);
                 let texts = gettextAll(response);
                 let durations = getdurationAll(response);
-                console.log(durations)
+                console.log(durations);
                 let all = [];
                 for(var i=0; i<starts.length; i++){
                     all.push([starts[i], texts[i], durations[i]])
@@ -82,49 +94,46 @@ class Player extends React.Component{
                     all : all
                 })
             }
-        }
-        let videoId = this.props.videoId
-        let vocab = this.props.vocab
+        };
+        let videoId = this.props.videoId;
+        let vocab = this.props.vocab;
         xhttp.open("GET", "https://rakutenmafia.azurewebsites.net/api/subtitle/matches?v=" + videoId + "&k="  + vocab, true);
         xhttp.send();
     }
 
     render(){
+        const opts = {
+            width: '100%',
+            playerVars: { // https://developers.google.com/youtube/player_parameters
+                autoplay: 1
+            }
+        };
         return(
             <div className={"player"}>
                 <div className="header">
-                    <h1 className="text-center">Find Words On Youtube!</h1>
-                    <p className="text-center">ユーチューブでたんごをさがそう!</p>
-                    <p className="text-center"><a href="/" className="btn btn-success">Home ほーむ</a></p>
                 </div>
-                <aside className="col-xs-4">
+
+                                    <YouTube
+                                        videoId={this.props.videoId}
+                                        onReady={this.onReady}
+                                        opts={opts}
+                                    />
+                                    <button onClick={this.onPlayVideo}>Play</button>
+                                    <button onClick={this.onPauseVideo}>Pause</button>
+
                     <h3>List of texts that have : {this.props.vocab}</h3>
                     {this.state.all.map((all) => {
                         return (
                             <div>
-                                <a onClick={()=>this.onClickLoadVideo(all)}>
-                                    <ul>
-                                        <li>start:{all[0]}</li>
-                                        <li>text:{all[1]}</li>
-                                    </ul>
-                                </a>
+                                <button onClick={()=>this.onChangeStartVideo(all)}>
+                                        <p>start:{all[0]}</p>
+                                        <p>text:{all[1]}</p>
+                                </button>
                             </div>
                         )
                     })}
-                    <button className="SearchResults" onClick = {() => this.props.changePage('SearchResults')}>
-                        SearchResults
-                    </button>
-                    <button className="Player" onClick = {() => this.props.changePage('Player')}>
-                        Player
-                    </button>
-                </aside>
-                <div className="main col-xs-8">
-                    <Example
-                        videoId={this.props.videoId}
-                        start={this.state.start}
-                        duration={this.state.duration}
-                    />
-                </div>
+
+
             </div>
         )
     }
