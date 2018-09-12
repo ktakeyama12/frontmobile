@@ -1,6 +1,12 @@
 import React from 'react';
 import '../css/searchresults.css';
 
+import {
+    Page,
+    ListItem
+} from 'react-onsenui';
+
+import NavBar from './NavBar';
 
 function getThumbnailAll(obj) {
     var thumbnails = [];
@@ -99,13 +105,10 @@ class SearchResults extends React.Component {
     render() {
         return (
             <div className={"searchresults"}>
-
+                <Page renderToolbar={() => <NavBar title='Search Results'/>}>
 
 
                 <div className="header">
-                    <h1 className="text-center">Find Words On Youtube!</h1>
-                    <p className="text-center">ユーチューブでたんごをさがそう!</p>
-                    <p className="text-center"><a href="/" className="btn btn-success">Home ほーむ</a></p>
                 </div>
                 <div className="main">
                     {this.state.all.map((all) => {
@@ -113,13 +116,17 @@ class SearchResults extends React.Component {
                             <div className="row">
                                 <div className="col-xs-12">
                                     <a onClick={() => this.sendVideoId(all[3])}>
+                                    <ListItem>
                                         <div className="col-xs-3">
                                             <iframe title={"movie"} width="560" height="315" src={all[0]} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen />
                                         </div>
+                                        </ListItem>
+                                        <ListItem>
                                         <div className="col-xs-9">
                                             <h3>{all[1]}</h3>
                                             <h3>含んでるワードの数：{all[2]}</h3>
                                         </div>
+                                        </ListItem>
                                     </a>
                                 </div>
                             </div>
@@ -133,6 +140,7 @@ class SearchResults extends React.Component {
                 <button className="Player" onClick = {() => this.props.changePage('Player')}>
                     Player
                 </button>
+                </Page>
             </div>
         )
     }
