@@ -118,7 +118,7 @@ class Player extends React.Component{
         };
         return(
             <div className={"player"}>
-             <Page renderToolbar={() => <NavBar title='Details'/>}>
+             <Page renderToolbar={() => <NavBar title='Search Results'/>}>
                 <div className="header">
                 </div>
 
@@ -141,7 +141,7 @@ class Player extends React.Component{
                             </div>
                         )
                     })}
-
+                </Page>
 
             </div>
         )
